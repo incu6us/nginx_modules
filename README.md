@@ -1,10 +1,10 @@
 # Installation
-  ## building:
+## building:
   ```
 ./configure --prefix=/path/to/nginx --add-dynamic-module=/path/to/nginx_test_module
 make install
   ```
-  ## configuration example:
+## configuration example:
   ```
 ...
           location ~test {
