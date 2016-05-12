@@ -66,12 +66,9 @@ ngx_module_t ngx_http_test_module = {
 /* Handler */
 static ngx_int_t ngx_http_test_handler(ngx_http_request_t *r) {
 
-    // sending a header
-    r->headers_out.status = NGX_HTTP_OK;
-    r->headers_out.content_length_n = sizeof(TEST);
+    // Initialize content type
     r->headers_out.content_type.len = sizeof("text/plain") - 1;
     r->headers_out.content_type.data = (u_char *) "text/plain";
-    ngx_http_send_header(r);
 
     // sending a body
     ngx_buf_t    *b;
@@ -94,6 +91,10 @@ static ngx_int_t ngx_http_test_handler(ngx_http_request_t *r) {
 
     b->last_buf = 1; /* there will be no more buffers in the request */
 
+    // Sending headers and body
+    r->headers_out.status = NGX_HTTP_OK;
+    r->headers_out.content_length_n = sizeof(TEST)-1;
+    ngx_http_send_header(r);
     return ngx_http_output_filter(r, &out);
 
 }
